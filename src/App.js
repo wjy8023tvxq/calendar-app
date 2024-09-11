@@ -1,25 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import Calendar from './components/Calendar';
+import DatePicker from './components/DatePicker';
+import DisplayDate from  './components/DisplayDate';
 
-function App() {
+const App = () => {
+  const [selectedDate, setSelectedDate] = useState({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
+  });
+
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Calendar</h1>
+      <DatePicker selectedDate={selectedDate} onDateChange={handleDateChange} />
+      <DisplayDate selectedDate={selectedDate} />
+      <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
     </div>
   );
 }
+
 
 export default App;
